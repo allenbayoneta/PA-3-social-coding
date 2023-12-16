@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Locator</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>IP Locator</h1>
+        <button onclick="findMyIP()">Find My IP</button>
+        <div id="locationResult"></div>
+    </div>
+
+    <script>
+        function findMyIP() {
+            fetch('/get_location')
+                .then(response => response.json())
+                .then(data => {
+                    const resultDiv = document.getElementById('locationResult');
+                    resultDiv.innerHTML = `<p><strong>IPv4 Address:</strong> ${data['IPv4 Address']}</p>
+                                           <p><strong>City:</strong> ${data.City}</p>
+                                           <p><strong>Region:</strong> ${data.Region}</p>
+                                           <p><strong>Country:</strong> ${data.Country}</p>
+                                           <p><strong>ASN:</strong> ${data.ASN}</p>
+                                           <p><strong>Provider (ISP):</strong> ${data['Provider (ISP)']}</p>
+                                           <p><strong>Latitude / Longitude:</strong> ${data['Latitude / Longitude']}</p>`;
+                })
+                .catch(error => console.error('Error fetching location:', error));
+        }
+    </script>
+</body>
+</html>
