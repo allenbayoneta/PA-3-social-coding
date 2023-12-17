@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 from api import get_location
 
+
 app = Flask(__name__)
 
 @app.route('/')
